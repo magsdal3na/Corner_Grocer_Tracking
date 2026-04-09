@@ -8,10 +8,10 @@ int main() {
 	Menu groceries;
 	int selection = 0;
 
+	cout << "Please select 1 - 4: ";
 	cin >> selection;
 
 	while ((selection >= 1) && (selection <= 4)) {
-		cout << "working. . ." << endl;
 
 		while (selection == 1) {
 			groceries.option1();
@@ -21,17 +21,17 @@ int main() {
 
 		while (selection == 2) {
 			cout << "List placeholder" << endl;
-			break;
+			cin >> selection;
 		}
 
 		while (selection == 3) {
 			cout << "Histogram placeholder" << endl;
-			break;
+			cin >> selection;
 		}
 
 		while (selection == 4) {
 			cout << "Ending program. . ." << endl;
-			break;
+			return 0;
 		}
 	}
 
