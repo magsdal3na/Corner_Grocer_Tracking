@@ -8,6 +8,8 @@ int main() {
 	Menu groceries;
 	int selection = 0;
 
+	groceries.menuDisplay();
+
 	cout << "Please select 1 - 4: ";
 	cin >> selection;
 
