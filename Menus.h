@@ -12,6 +12,7 @@ class Menu {
 		//void option2();
 		//void option3();
 		//void option4();
+		void menuDisplay();
 
 	private:
 		int m_selection; //might not need. placeholder
