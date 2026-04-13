@@ -7,24 +7,22 @@ using namespace std;
 
 int main() {
 	//setting up input file stream and error catching
-	ifstream inFS; //input file stream
-	string item; //item from file
+	//ifstream inFS; //input file stream
+	//string item; //item from file
 
-	inFS.open("CS210_Project_Three_Input_File.txt");
-	if (!inFS.is_open()) {
-		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-		return 1; //indicates error
-	}
+	//inFS.open("CS210_Project_Three_Input_File.txt");
+	//if (!inFS.is_open()) {
+	//	cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+	//	return 1; //indicates error
+	//}
 
-	inFS >> item;
-	while (!inFS.fail()) {
-		inFS >> item;
-	}
-	if (!inFS.eof()) {
-		cout << "Input failture before reaching end of file." << endl;
-	}
-
-	inFS.close();
+	//inFS >> item;
+	//while (!inFS.fail()) {
+	//	inFS >> item;
+	//}
+	//if (!inFS.eof()) {
+	//	cout << "Input failture before reaching end of file." << endl;
+	//}
 
 	Menu groceries;
 	int selection = 0;
@@ -43,7 +41,8 @@ int main() {
 		}
 
 		while (selection == 2) {
-			cout << "List placeholder" << endl;
+			//groceries.inputList();
+			cout << "Make a new selection: ";
 			cin >> selection;
 		}
 
@@ -57,6 +56,8 @@ int main() {
 			return 0;
 		}
 	}
+
+	//inFS.close();
 
 	return 0;
 }
