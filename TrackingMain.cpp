@@ -1,10 +1,31 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <fstream> //for inputting file
 #include "Menus.h"
 using namespace std;
 
 int main() {
+	//setting up input file stream and error catching
+	ifstream inFS; //input file stream
+	string item; //item from file
+
+	inFS.open("CS210_Project_Three_Input_File.txt");
+	if (!inFS.is_open()) {
+		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+		return 1; //indicates error
+	}
+
+	inFS >> item;
+	while (!inFS.fail()) {
+		inFS >> item;
+	}
+	if (!inFS.eof()) {
+		cout << "Input failture before reaching end of file." << endl;
+	}
+
+	inFS.close();
+
 	Menu groceries;
 	int selection = 0;
 
