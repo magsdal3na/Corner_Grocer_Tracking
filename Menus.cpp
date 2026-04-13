@@ -20,9 +20,9 @@ void Menu::option1() {
 }
 
 void Menu::menuDisplay() {
-	cout << setfill("-") << setw(40) << " " << endl;
-	cout << setfill(" ") << setw(20) << "   Welcome to the   " << setw(20) << endl;
+	cout << setfill('-') << setw(40) << " " << endl;
+	cout << setfill(' ') << setw(20) << "   Welcome to the   " << setw(20) << endl;
 	cout << setw(20) << "   Corner Grocer Tracking Program!   " << setw(20) << endl;
-	cout << setfill("-") << setw(40) << " " << endl;
-	cout << setfill(" ") << setw(20) << "Please select from one of these options: " << setw(20) << endl;
+	cout << setfill('-') << setw(40) << " " << endl;
+	cout << setfill(' ') << setw(20) << "Please select from one of these options: " << setw(20) << endl;
 }
