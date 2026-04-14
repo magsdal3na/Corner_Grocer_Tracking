@@ -47,7 +47,8 @@ int main() {
 		}
 
 		while (selection == 3) {
-			cout << "Histogram placeholder" << endl;
+			groceries.option3();
+			cout << "Make a new selection: ";
 			cin >> selection;
 		}
 
