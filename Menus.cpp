@@ -56,18 +56,11 @@ int Menu::option1() {
 	return 0;
 }
 
-void Menu::menuDisplay() {
-	cout << setfill('-') << setw(40) << " " << endl;
-	cout << setfill(' ') << setw(20) << "   Welcome to the   " << setw(20) << endl;
-	cout << setw(20) << "   Corner Grocer Tracking Program!   " << setw(20) << endl;
-	cout << setfill('-') << setw(40) << " " << endl;
-	cout << setfill(' ') << setw(20) << "Please select from one of these options: " << setw(20) << endl;
-}
-
-int Menu::inputList() {
+//printing frequency using a histogram
+int Menu::option3() {
 	ifstream inFS;
 	string m_inputItem;
-	int m_itemFrequency;
+	int m_itemFrequency = 0;
 	string m_item;
 
 	inFS.open("CS210_Project_Three_Input_File.txt");
@@ -77,17 +70,68 @@ int Menu::inputList() {
 		return 1;
 	}
 
-	cout << "Printing item list. . ." << endl;
+	cout << "Enter an item's name: " << endl;
+	cin >> m_inputItem;
 
 	while (!inFS.eof()) {
 		inFS >> m_item;
 
 		if (!inFS.fail()) {
-			cout << m_item << endl;
+			string m_itemLower = m_item;
+			string m_inputLower = m_inputItem;
+
+			//converting text to lowercase
+			transform(m_itemLower.begin(), m_itemLower.end(), m_itemLower.begin(), tolower);
+			transform(m_inputLower.begin(), m_inputLower.end(), m_inputLower.begin(), tolower);
+
+			if (m_itemLower == m_inputLower) {
+				++m_itemFrequency;
+			}
 		}
 	}
+
+	//creating a string of stars for histogram output
+	string m_starOutput(m_itemFrequency, '*');
+
+	cout << m_inputItem << " " << m_starOutput << endl;
 
 	inFS.close();
 
 	return 0;
 }
+
+void Menu::menuDisplay() {
+	cout << setfill('-') << setw(40) << " " << endl;
+	cout << setfill(' ') << setw(20) << "   Welcome to the   " << setw(20) << endl;
+	cout << setw(20) << "   Corner Grocer Tracking Program!   " << setw(20) << endl;
+	cout << setfill('-') << setw(40) << " " << endl;
+	cout << setfill(' ') << setw(20) << "Please select from one of these options: " << setw(20) << endl;
+}
+
+//int Menu::inputList() {
+//	ifstream inFS;
+//	string m_inputItem;
+//	int m_itemFrequency;
+//	string m_item;
+//
+//	inFS.open("CS210_Project_Three_Input_File.txt");
+//
+//	if (!inFS.is_open()) {
+//		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+//		return 1;
+//	}
+//
+//	cout << "Printing item list. . ." << endl;
+//
+//	while (!inFS.eof()) {
+//		inFS >> m_item;
+//
+//		if (!inFS.fail()) {
+//			cout << m_item << endl;
+//		}
+//	}
+//
+//	inFS.close();
+//
+//	return 0;
+//}
