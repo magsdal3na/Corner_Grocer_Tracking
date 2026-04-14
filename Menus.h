@@ -9,11 +9,11 @@ class Menu {
 		Menu();
 
 		int option1();
-		//void option2();
-		//void option3();
+		//int option2();
+		int option3();
 		//void option4();
 		void menuDisplay();
-		int inputList();
+		//int inputList();
 
 	private:
 		int m_selection; //might not need. placeholder
@@ -21,6 +21,7 @@ class Menu {
 		int m_amount;
 		std::string m_item;
 		int m_itemFrequency;
+		std::string m_starOutput;
 
 };
 
