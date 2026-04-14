@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <string>
 #include <fstream>
+#include <algorithm> //to use transform
+#include <cctype> //to use tolower
 #include "Menus.h"
 using namespace std;
 
@@ -34,7 +36,14 @@ int Menu::option1() {
 		inFS >> m_item;
 
 		if (!inFS.fail()) {
-			if (m_item == m_inputItem) {
+			string m_itemLower = m_item;
+			string m_inputLower = m_inputItem;
+
+			//converting text to lowercase
+			transform(m_itemLower.begin(), m_itemLower.end(), m_itemLower.begin(), tolower);
+			transform(m_inputLower.begin(), m_inputLower.end(), m_inputLower.begin(), tolower);
+
+			if (m_itemLower == m_inputLower) {
 				++m_itemFrequency;
 			}
 		}
