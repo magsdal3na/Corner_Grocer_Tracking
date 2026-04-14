@@ -4,6 +4,7 @@
 #include <fstream>
 #include <algorithm> //to use transform
 #include <cctype> //to use tolower
+#include <map> //to count words in file
 #include "Menus.h"
 using namespace std;
 
@@ -59,9 +60,9 @@ int Menu::option1() {
 //printing frequency using a histogram
 int Menu::option3() {
 	ifstream inFS;
-	string m_inputItem;
-	int m_itemFrequency = 0;
 	string m_item;
+	//map to store words and the count
+	map<string, int> m_itemCounts;
 
 	inFS.open("CS210_Project_Three_Input_File.txt");
 
@@ -70,23 +71,15 @@ int Menu::option3() {
 		return 1;
 	}
 
-	cout << "Enter an item's name: " << endl;
-	cin >> m_inputItem;
-
 	while (!inFS.eof()) {
 		inFS >> m_item;
 
 		if (!inFS.fail()) {
-			string m_itemLower = m_item;
-			string m_inputLower = m_inputItem;
-
 			//converting text to lowercase
-			transform(m_itemLower.begin(), m_itemLower.end(), m_itemLower.begin(), tolower);
-			transform(m_inputLower.begin(), m_inputLower.end(), m_inputLower.begin(), tolower);
+			transform(m_item.begin(), m_item.end(), m_item.begin(), tolower);
 
-			if (m_itemLower == m_inputLower) {
-				++m_itemFrequency;
-			}
+			//if item exists, map is updated
+			m_itemCounts[m_item]++;
 		}
 	}
 
