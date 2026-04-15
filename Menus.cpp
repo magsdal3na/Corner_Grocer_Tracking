@@ -75,18 +75,16 @@ int Menu::option3() {
 		inFS >> m_item;
 
 		if (!inFS.fail()) {
-			//converting text to lowercase
-			transform(m_item.begin(), m_item.end(), m_item.begin(), tolower);
-
 			//if item exists, map is updated
 			m_itemCounts[m_item]++;
 		}
 	}
 
-	//creating a string of stars for histogram output
-	string m_starOutput(m_itemFrequency, '*');
-
-	cout << m_inputItem << " " << m_starOutput << endl;
+	//iterate through list and print frequencies
+	for (auto const& pair : m_itemCounts) {
+		string m_starOutput(pair.second, '*');
+		cout << pair.first << " " << m_starOutput << endl;
+	}
 
 	inFS.close();
 
