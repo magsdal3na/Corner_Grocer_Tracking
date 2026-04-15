@@ -9,11 +9,9 @@ class Menu {
 		Menu();
 
 		int option1();
-		//int option2();
+		int option2();
 		int option3();
-		//void option4();
 		void menuDisplay();
-		//int inputList();
 
 	private:
 		int m_selection; //might not need. placeholder
