@@ -50,7 +50,40 @@ int Menu::option1() {
 		}
 	}
 
-	cout << m_inputItem << " " << m_itemFrequency << endl;
+	cout << m_itemFrequency << endl;
+
+	inFS.close();
+
+	return 0;
+}
+
+//printing frequency with numbers representing frequency
+int Menu::option2() {
+	ifstream inFS;
+	string m_item;
+	//map to store words and the count
+	map<string, int> m_itemCounts;
+
+	inFS.open("CS210_Project_Three_Input_File.txt");
+
+	if (!inFS.is_open()) {
+		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+		return 1;
+	}
+
+	while (!inFS.eof()) {
+		inFS >> m_item;
+
+		if (!inFS.fail()) {
+			//if item exists, map is updated
+			m_itemCounts[m_item]++;
+		}
+	}
+
+	//iterate through list and print frequencies
+	for (auto const& pair : m_itemCounts) {
+		cout << pair.first << " " << pair.second << endl;
+	}
 
 	inFS.close();
 
@@ -80,7 +113,7 @@ int Menu::option3() {
 		}
 	}
 
-	//iterate through list and print frequencies
+	//iterate through list and print frequencies with stars
 	for (auto const& pair : m_itemCounts) {
 		string m_starOutput(pair.second, '*');
 		cout << pair.first << " " << m_starOutput << endl;
@@ -99,30 +132,3 @@ void Menu::menuDisplay() {
 	cout << setfill(' ') << setw(20) << "Please select from one of these options: " << setw(20) << endl;
 }
 
-//int Menu::inputList() {
-//	ifstream inFS;
-//	string m_inputItem;
-//	int m_itemFrequency;
-//	string m_item;
-//
-//	inFS.open("CS210_Project_Three_Input_File.txt");
-//
-//	if (!inFS.is_open()) {
-//		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-//		return 1;
-//	}
-//
-//	cout << "Printing item list. . ." << endl;
-//
-//	while (!inFS.eof()) {
-//		inFS >> m_item;
-//
-//		if (!inFS.fail()) {
-//			cout << m_item << endl;
-//		}
-//	}
-//
-//	inFS.close();
-//
-//	return 0;
-//}
