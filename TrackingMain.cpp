@@ -1,13 +1,15 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <fstream> //for inputting file
+#include <fstream> //for inputting and outputting files
 #include "Menus.h"
 using namespace std;
 
 int main() {
 	Menu groceries;
 	int selection = 0;
+
+	groceries.backupFileCreation();
 
 	groceries.menuDisplay();
 
@@ -39,6 +41,8 @@ int main() {
 			return 0;
 		}
 	}
+
+	cout << "Incorrect value entered. Please restart program." << endl;
 
 	return 0;
 }
