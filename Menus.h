@@ -11,6 +11,7 @@ class Menu {
 		int option1();
 		int option2();
 		int option3();
+		int backupFileCreation();
 		void menuDisplay();
 
 	private:
