@@ -30,6 +30,7 @@ int Menu::option1() {
 		return 1;
 	}
 
+	cout << endl;
 	cout << "Enter an item's name: " << endl;
 	cin >> m_inputItem;
 
@@ -51,6 +52,7 @@ int Menu::option1() {
 	}
 
 	cout << m_itemFrequency << endl;
+	cout << endl;
 
 	inFS.close();
 
@@ -124,11 +126,60 @@ int Menu::option3() {
 	return 0;
 }
 
+int Menu::backupFileCreation() {
+	ifstream inFS;
+	ofstream outFS;
+	string m_item;
+	map<string, int> m_itemCounts;
+
+	inFS.open("CS210_Project_Three_Input_File.txt"); //input file
+	outFS.open("frequency.dat"); //output file backup data
+
+	//checking to see if input file can open
+	if (!inFS.is_open()) {
+		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+		return 1;
+	}
+
+	//checking to see if output file can be created
+	if (!outFS.is_open()) {
+		cout << "Could not open file frequency.dat." << endl;
+		return 1;
+	}
+
+	//inputs data from input file
+	while (!inFS.eof()) {
+		inFS >> m_item;
+		//runs while data input does not fail
+		if (!inFS.fail()) {
+			//if item exists, map is updated
+			m_itemCounts[m_item]++;
+		}
+	}
+
+	//iterates over all items and values to create frequency list
+	for (auto const& pair : m_itemCounts) {
+		outFS << pair.first << " " << pair.second << endl;
+	}
+
+	//closes both files
+	inFS.close();
+	outFS.close();
+
+	return 0;
+}
+
 void Menu::menuDisplay() {
-	cout << setfill('-') << setw(40) << " " << endl;
-	cout << setfill(' ') << setw(20) << "   Welcome to the   " << setw(20) << endl;
-	cout << setw(20) << "   Corner Grocer Tracking Program!   " << setw(20) << endl;
-	cout << setfill('-') << setw(40) << " " << endl;
-	cout << setfill(' ') << setw(20) << "Please select from one of these options: " << setw(20) << endl;
+	cout << setfill('-') << setw(50) << "" << endl;
+	cout << setfill(' ') << setw(32) << "   Welcome to the   " << endl;
+	cout << setw(41) << "   Corner Grocer Tracking Program!   " << " " << endl;
+	cout << setfill('-') << setw(51) << " " << endl;
+	cout << setfill(' ') << setw(50) << endl;
+	cout << setw(20) << "Please select from one of these options: " << setw(20) << endl;
+	cout << "1. Input an item/word to see the frequency." << endl;
+	cout << "2. Print full list of items with frequencies." << endl;
+	cout << "3. Print full list with frequencies in a histogram." << endl;
+	cout << "4. End program." << endl;
+	cout << endl;
 }
 
