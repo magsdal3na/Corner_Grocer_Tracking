@@ -2,6 +2,7 @@
 #define TRACKING_MAIN_MENUS_H_
 
 #include <string>
+using namespace std;
 
 class Menu {
 	public:
@@ -15,12 +16,11 @@ class Menu {
 		void menuDisplay();
 
 	private:
-		int m_selection; //might not need. placeholder
-		std::string m_inputItem;
+		string m_inputItem;
 		int m_amount;
-		std::string m_item;
+		string m_item;
 		int m_itemFrequency;
-		std::string m_starOutput;
+		string m_starOutput;
 
 };
 
