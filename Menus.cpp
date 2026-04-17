@@ -10,61 +10,69 @@ using namespace std;
 
 //sets up basic constructor
 Menu::Menu() {
-	m_inputItem = "";
 	m_amount = 0;
 	m_item = "";
-	m_itemFrequency = 0;
 }
 
 //prompt user for input and output frequency of item
 int Menu::option1() {
 	ifstream inFS;
-	string m_inputItem;
-	int m_itemFrequency = 0;
+	string inputItem;
+	int itemFrequency = 0;
 	string m_item;
 
-	//attempts to open text file
-	inFS.open("CS210_Project_Three_Input_File.txt");
+	try {
+		//attempts to open text file
+		inFS.open("CS210_Project_Three_Input_File.txt");
 
-	if (!inFS.is_open()) {
-		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-		return 1;
-	}
+		if (!inFS.is_open()) {
+			cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
+			throw runtime_error("File System Error: Unable to locate or open the input data file.");
+		}
 
-	//prompts user for input of item name
-	cout << endl;
-	cout << "Enter an item's name: " << endl;
-	cin >> m_inputItem;
+		//prompts user for input of item name
+		cout << endl;
+		cout << "Enter an item's name: " << endl;
+		cin >> inputItem;
 
-	//loop iterates until end of input
-	while (!inFS.eof()) {
-		inFS >> m_item;
-		
-		//while the input doesn't fail, convert user and file input to lowercase for comparison
-		if (!inFS.fail()) {
-			string m_itemLower = m_item;
-			string m_inputLower = m_inputItem;
+		//loop iterates until end of input
+		while (!inFS.eof()) {
+			inFS >> m_item;
 
-			//converting text to lowercase
-			transform(m_itemLower.begin(), m_itemLower.end(), m_itemLower.begin(), tolower);
-			transform(m_inputLower.begin(), m_inputLower.end(), m_inputLower.begin(), tolower);
+			//while the input doesn't fail, convert user and file input to lowercase for comparison
+			if (!inFS.fail()) {
+				string itemLower = m_item;
+				string inputLower = inputItem;
 
-			//increase frequency if input item and list item matches
-			if (m_itemLower == m_inputLower) {
-				++m_itemFrequency;
+				//converting text to lowercase
+				transform(itemLower.begin(), itemLower.end(), itemLower.begin(), tolower);
+				transform(inputLower.begin(), inputLower.end(), inputLower.begin(), tolower);
+
+				//increase frequency if input item and list item matches
+				if (itemLower == inputLower) {
+					++itemFrequency;
+				}
 			}
 		}
-	}
-	if (m_itemFrequency > 0) {
-		//outputs the item's frequency if item had more than 0 items
-		cout << m_itemFrequency << endl;
-		cout << endl;
-	}
-	else {
-		cout << "There is no match for that word." << endl;
-	}
 
-	inFS.close();
+
+		if (itemFrequency > 0) {
+			//outputs the item's frequency if item had more than 0 items
+			cout << itemFrequency << endl;
+			cout << endl;
+		}
+		else {
+			cout << "There is no match for that word." << endl;
+			cout << endl;
+		}
+
+		inFS.close();
+	}
+	//catches the runtime error
+	catch (const runtime_error& e) {
+		cout << "Error: " << e.what() << endl;
+		return 1; //signals error to main()
+	}
 
 	return 0;
 }
@@ -74,34 +82,40 @@ int Menu::option2() {
 	ifstream inFS;
 	string m_item;
 	//map to store words and the count
-	map<string, int> m_itemCounts;
+	map<string, int> itemCounts;
 
-	//attempts to open input file
-	inFS.open("CS210_Project_Three_Input_File.txt");
+	try {
+		//attempts to open input file
+		inFS.open("CS210_Project_Three_Input_File.txt");
 
-	if (!inFS.is_open()) {
-		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-		return 1;
-	}
-
-	//iterates until at the end of the input file
-	while (!inFS.eof()) {
-		inFS >> m_item;
-
-		if (!inFS.fail()) {
-			//if item exists, map is updated
-			m_itemCounts[m_item]++;
+		if (!inFS.is_open()) {
+			throw runtime_error("Error: Could not open input file for frequency list output.");
 		}
-	}
-	cout << endl;
-	//iterate through list and print frequencies
-	for (auto const& pair : m_itemCounts) {
-		cout << right << setw(15) << pair.first << " " << left << pair.second << endl;
+
+		//iterates until at the end of the input file
+		while (!inFS.eof()) {
+			inFS >> m_item;
+
+			if (!inFS.fail()) {
+				//if item exists, map is updated
+				itemCounts[m_item]++;
+			}
+		}
+		cout << endl;
+		//iterate through list and print frequencies
+		for (auto const& pair : itemCounts) {
+			cout << right << setw(15) << pair.first << " " << left << pair.second << endl;
+		}
+
+		cout << endl;
+
+		inFS.close();
 	}
 
-	cout << endl;
-
-	inFS.close();
+	catch (const runtime_error& t_e) {
+		cout << t_e.what() << endl;
+		return 1; //signals failure to main()
+	}
 
 	return 0;
 }
@@ -111,37 +125,43 @@ int Menu::option3() {
 	ifstream inFS;
 	string m_item;
 	//map to store words and the count
-	map<string, int> m_itemCounts;
+	map<string, int> itemCounts;
 
-	//attempt to open input file
-	inFS.open("CS210_Project_Three_Input_File.txt");
+	try {
+		//attempt to open input file
+		inFS.open("CS210_Project_Three_Input_File.txt");
 
-	if (!inFS.is_open()) {
-		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-		return 1;
-	}
-
-	//iterates until at the end of the input file
-	while (!inFS.eof()) {
-		inFS >> m_item;
-
-		if (!inFS.fail()) {
-			//if item exists, map is updated
-			m_itemCounts[m_item]++;
+		if (!inFS.is_open()) {
+			throw runtime_error("Error: Could not open input file for histogram output.");
 		}
+
+		//iterates until at the end of the input file
+		while (!inFS.eof()) {
+			inFS >> m_item;
+
+			if (!inFS.fail()) {
+				//if item exists, map is updated
+				itemCounts[m_item]++;
+			}
+		}
+
+		cout << endl;
+
+		//iterate through list and print frequencies with stars
+		for (auto const& pair : itemCounts) {
+			string starOutput(pair.second, '*');
+			cout << right << setw(15) << pair.first << " " << left << starOutput << " " << endl;
+		}
+
+		cout << endl;
+
+		inFS.close();
 	}
 
-	cout << endl;
-
-	//iterate through list and print frequencies with stars
-	for (auto const& pair : m_itemCounts) {
-		string m_starOutput(pair.second, '*');
-		cout << right << setw(15) << pair.first << " " << left << m_starOutput << " " << endl;
+	catch (const runtime_error& t_e) {
+		cout << t_e.what() << endl;
+		return 1; //signals failure to main()
 	}
-
-	cout << endl;
-
-	inFS.close();
 
 	return 0;
 }
@@ -151,42 +171,47 @@ int Menu::backupFileCreation() {
 	ifstream inFS;
 	ofstream outFS;
 	string m_item;
-	map<string, int> m_itemCounts;
+	map<string, int> itemCounts;
 
-	//attempts to open input file and create/open output file
-	inFS.open("CS210_Project_Three_Input_File.txt"); //input file
-	outFS.open("frequency.dat"); //output file backup data
+	try {
+		//attempts to open input file and create/open output file
+		inFS.open("CS210_Project_Three_Input_File.txt"); //input file
+		outFS.open("frequency.dat"); //output file backup data
 
-	//checking to see if input file can open
-	if (!inFS.is_open()) {
-		cout << "Could not open file CS210_Project_Three_Input_File.txt." << endl;
-		return 1;
-	}
-
-	//checking to see if output file can be created
-	if (!outFS.is_open()) {
-		cout << "Could not open file frequency.dat." << endl;
-		return 1;
-	}
-
-	//inputs data from input file
-	while (!inFS.eof()) {
-		inFS >> m_item;
-		//runs while data input does not fail
-		if (!inFS.fail()) {
-			//if item exists, map is updated
-			m_itemCounts[m_item]++;
+		//checking to see if input file can open
+		if (!inFS.is_open()) {
+			throw runtime_error("Error: Unable to open input file for backup.");
 		}
+
+		//checking to see if output file can be created
+		if (!outFS.is_open()) {
+			throw runtime_error("Error: Unable to create frequency.dat backup file.");
+		}
+
+		//inputs data from input file
+		while (!inFS.eof()) {
+			inFS >> m_item;
+			//runs while data input does not fail
+			if (!inFS.fail()) {
+				//if item exists, map is updated
+				itemCounts[m_item]++;
+			}
+		}
+
+		//iterates over all items and values to create frequency list
+		for (auto const& pair : itemCounts) {
+			outFS << pair.first << " " << pair.second << endl;
+		}
+
+		//closes both files
+		inFS.close();
+		outFS.close();
 	}
 
-	//iterates over all items and values to create frequency list
-	for (auto const& pair : m_itemCounts) {
-		outFS << pair.first << " " << pair.second << endl;
+	catch (const runtime_error& e) {
+		cout << e.what() << endl;
+		return 1; //signals failure to main()
 	}
-
-	//closes both files
-	inFS.close();
-	outFS.close();
 
 	return 0;
 }
